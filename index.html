@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Correlación y regresión lineal | CCH</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#172438;background:#f4f6fa}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1180px;margin:auto;padding:22px}h1{font-size:1.75rem;margin:0 0 8px}p{line-height:1.55}.sub{color:#526278;margin:0 0 18px}.layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(290px,1fr);gap:16px}.panel{background:white;border:1px solid #dce3ed;border-radius:14px;padding:16px;box-shadow:0 2px 10px #1724380a}svg{width:100%;height:auto;touch-action:none;display:block}button,select,input{font:inherit}button{background:#205db1;color:white;border:0;border-radius:8px;padding:10px 13px;cursor:pointer}button.secondary{background:#edf3fc;color:#204b84}button:hover{filter:brightness(.95)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}.stat{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{border:1px solid #e2e8f2;border-radius:9px;padding:12px;background:#fafcff}.metric small{display:block;color:#5e7086}.metric strong{font-size:1.35rem;font-variant-numeric:tabular-nums}.checks{display:grid;gap:10px;margin:14px 0}label{cursor:pointer}.info{background:#eff6ff;padding:11px;border-radius:8px;font-size:.92rem;line-height:1.5}table{border-collapse:collapse;width:100%;font-size:.88rem}th,td{padding:8px 5px;border-bottom:1px solid #e3e9f0;text-align:right}th:first-child,td:first-child{text-align:left}td input{max-width:70px;width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:5px;text-align:right}.scroll{overflow-x:auto}h2{font-size:1.1rem}.guide{margin-top:16px}.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:#475569}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}#status{min-height:24px;color:#344b66;font-size:.88rem}footer{color:#536477;font-size:.85rem;margin:18px 0}@media(max-width:800px){.layout{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:1.4rem}}
+</style>
+</head><body><main class="wrap">
+<h1>Correlación y regresión lineal: laboratorio interactivo</h1>
+<p class="sub">Estadística I · CCH · Arrastre los puntos del gráfico o modifique los valores de la tabla. Los cálculos se actualizan automáticamente. Funciona sin conexión a Internet.</p>
+<div class="layout"><section class="panel"><div class="toolbar"><button id="reset">Restaurar ejemplo</button><button class="secondary" id="positive">Positiva</button><button class="secondary" id="negative">Negativa</button><button class="secondary" id="nonlinear">No lineal</button><button class="secondary" id="add">Añadir punto</button></div>
+<svg id="plot" viewBox="0 0 700 460" role="img" aria-label="Diagrama de dispersión interactivo con recta de regresión y residuos"></svg>
+<div class="legend"><span><i class="dot" style="background:#2563eb"></i>Observaciones</span><span><i class="dot" style="background:#e36d39"></i>Recta de regresión</span><span><i class="dot" style="background:#a855f7"></i>Residuos verticales</span><span><i class="dot" style="background:#059669"></i>Centro de medias</span></div>
+<div class="checks"><label><input type="checkbox" id="residuals" checked> Mostrar residuos</label><label><input type="checkbox" id="means" checked> Mostrar rectas de las medias</label><label><input type="checkbox" id="fit" checked> Mostrar recta de regresión</label></div>
+<div class="info" id="pointInfo">Seleccione o arrastre un punto para evaluar su residuo.</div></section>
+<aside class="panel"><h2>Indicadores estadísticos</h2><div class="stat"><div class="metric"><small>Correlación de Pearson (r)</small><strong id="r">—</strong></div><div class="metric"><small>Suma de residuos² (S)</small><strong id="sse">—</strong></div><div class="metric"><small>Pendiente (b)</small><strong id="slope">—</strong></div><div class="metric"><small>Ordenada (a)</small><strong id="intercept">—</strong></div><div class="metric"><small>Media de X</small><strong id="meanx">—</strong></div><div class="metric"><small>Media de Y</small><strong id="meany">—</strong></div></div>
+<p id="equation" style="font-weight:650"></p><p class="info" id="interp"></p>
+<h2>Datos y residuos</h2><div class="scroll"><table><thead><tr><th>#</th><th>x</th><th>y</th><th>ŷ</th><th>e=y−ŷ</th></tr></thead><tbody id="rows"></tbody></table></div><div class="actions"><button class="secondary" id="remove">Quitar último</button><button class="secondary" id="csv">Exportar CSV</button></div><p id="status" aria-live="polite"></p></aside></div>
+<section class="panel guide"><h2>Preguntas para el trabajo en clase</h2><ol><li>¿Cómo cambia el signo de <strong>r</strong> cuando los puntos muestran tendencia decreciente?</li><li>¿Puede existir una asociación no lineal aunque <strong>r</strong> sea cercano a cero?</li><li>Seleccione un punto: ¿qué significan el signo y la magnitud de su residuo?</li><li>¿La recta de mínimos cuadrados pasa por el punto (<strong>x̄</strong>, <strong>ȳ</strong>)?</li><li>¿Cómo cambian la correlación y la pendiente al mover una observación muy lejos de las demás?</li></ol><p><strong>Conceptos:</strong> ŷ = a + bx; e = y − ŷ; S = Σe². El coeficiente r describe la dirección e intensidad de una asociación <em>lineal</em>, no demuestra causalidad.</p></section>
+<footer>Actividad didáctica · Ejemplo inicial: horas de estudio (X) y calificación (Y) · Se recomienda trabajar preferentemente con valores de 0 a 10.</footer>
+</main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), NS='http://www.w3.org/2000/svg';
+const original=[[1,2],[2,3],[3,5],[4,4],[5,6],[6,7]];
+let points=original.map(p=>p.slice()),selected=3,drag=-1;
+const xmin=0,xmax=10,ymin=0,ymax=10,left=62,right=668,top=23,bottom=398;
+const px=x=>left+(x-xmin)*(right-left)/(xmax-xmin),py=y=>bottom-(y-ymin)*(bottom-top)/(ymax-ymin);
+const ux=p=>xmin+(p-left)*(xmax-xmin)/(right-left),uy=p=>ymin+(bottom-p)*(ymax-ymin)/(bottom-top);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fixed=(v,n=3)=>Number.isFinite(v)?v.toFixed(n):'—';
+function svgEl(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el}
+function stats(){let n=points.length,mx=points.reduce((s,p)=>s+p[0],0)/n,my=points.reduce((s,p)=>s+p[1],0)/n;
+let xx=0,yy=0,xy=0;for(const [x,y] of points){xx+=(x-mx)**2;yy+=(y-my)**2;xy+=(x-mx)*(y-my)}
+const b=xx>1e-10?xy/xx:NaN,a=Number.isFinite(b)?my-b*mx:NaN,r=xx>1e-10&&yy>1e-10?xy/Math.sqrt(xx*yy):NaN;
+const sse=Number.isFinite(a)?points.reduce((s,[x,y])=>s+(y-a-b*x)**2,0):NaN;return{n,mx,my,b,a,r,sse}}
+function draw(){const svg=$('plot'),s=stats();svg.replaceChildren();
+for(let k=0;k<=10;k++){let xp=px(k),yp=py(k);svg.append(svgEl('line',{x1:xp,y1:top,x2:xp,y2:bottom,stroke:'#e8edf5'}),svgEl('line',{x1:left,y1:yp,x2:right,y2:yp,stroke:'#e8edf5'}));svg.append(svgEl('text',{x:xp,y:bottom+20,'text-anchor':'middle','font-size':12,fill:'#526278'},k),svgEl('text',{x:left-15,y:yp+4,'text-anchor':'end','font-size':12,fill:'#526278'},k))}
+svg.append(svgEl('path',{d:`M${left} ${top}V${bottom}H${right}`,stroke:'#64748b','stroke-width':1.6,fill:'none'}));
+svg.append(svgEl('text',{x:365,y:445,'text-anchor':'middle','font-size':14,fill:'#334155'},'X · Horas de estudio'),svgEl('text',{x:19,y:214,transform:'rotate(-90 19 214)','text-anchor':'middle','font-size':14,fill:'#334155'},'Y · Calificación'));
+if($('means').checked){svg.append(svgEl('line',{x1:px(s.mx),y1:top,x2:px(s.mx),y2:bottom,stroke:'#059669','stroke-width':1.5,'stroke-dasharray':'7 5'}),svgEl('line',{x1:left,y1:py(s.my),x2:right,y2:py(s.my),stroke:'#059669','stroke-width':1.5,'stroke-dasharray':'7 5'}),svgEl('circle',{cx:px(s.mx),cy:py(s.my),r:5,fill:'#059669'}))}
+if(Number.isFinite(s.b)){
+ if($('fit').checked)svg.append(svgEl('line',{x1:px(0),y1:py(s.a),x2:px(10),y2:py(s.a+s.b*10),stroke:'#e36d39','stroke-width':3}));
+ if($('residuals').checked)for(const [x,y] of points)svg.append(svgEl('line',{x1:px(x),y1:py(y),x2:px(x),y2:py(s.a+s.b*x),stroke:'#a855f7','stroke-width':2,'stroke-dasharray':'5 4'}))}
+points.forEach(([x,y],i)=>{const c=svgEl('circle',{cx:px(x),cy:py(y),r:i===selected?8:6,fill:i===selected?'#1d4ed8':'#2563eb',stroke:'white','stroke-width':2,'data-index':i,style:'cursor:grab'});svg.append(c);svg.append(svgEl('text',{x:px(x)+9,y:py(y)-8,'font-size':12,fill:'#244369','pointer-events':'none'},i+1))});
+for(const [id,val] of Object.entries({r:s.r,sse:s.sse,slope:s.b,intercept:s.a,meanx:s.mx,meany:s.my}))$(id).textContent=fixed(val);
+$('equation').textContent=Number.isFinite(s.a)?`Recta: ŷ = ${fixed(s.a)} ${s.b>=0?'+':'−'} ${fixed(Math.abs(s.b))}x`:'No se puede obtener una recta: X no presenta variación.';
+$('interp').textContent=Number.isFinite(s.r)?`Correlación ${s.r>=0?'positiva':'negativa'}; magnitud |r| = ${fixed(Math.abs(s.r))}. Una correlación cercana a 0 no descarta una relación no lineal.`:'La correlación no está definida porque alguna variable es constante.';
+const body=$('rows');body.replaceChildren();points.forEach(([x,y],i)=>{let pred=s.a+s.b*x,res=y-pred,tr=document.createElement('tr');let td=document.createElement('td');td.textContent=i+1;tr.append(td);for(let j=0;j<2;j++){td=document.createElement('td');let inp=document.createElement('input');inp.type='number';inp.step='0.1';inp.min='0';inp.max='10';inp.value=Number(points[i][j].toFixed(2));inp.setAttribute('aria-label',`Punto ${i+1}, ${j===0?'X':'Y'}`);inp.addEventListener('change',()=>{let v=Number(inp.value);if(Number.isFinite(v)){points[i][j]=clamp(v,0,10);selected=i;draw()}else draw()});td.append(inp);tr.append(td)}for(const val of [pred,res]){td=document.createElement('td');td.textContent=fixed(val);tr.append(td)}body.append(tr)});
+if(selected>=0&&selected<points.length){let [x,y]=points[selected],pred=s.a+s.b*x,err=y-pred;$('pointInfo').textContent=`Punto ${selected+1}: observado (${fixed(x,2)}, ${fixed(y,2)}); estimado ŷ = ${fixed(pred)}; residuo e = ${fixed(err)}. ${!Number.isFinite(err)?'No puede calcularse.':Math.abs(err)<.0001?'El punto está sobre la recta.':err>0?'Está por encima de la recta.':'Está por debajo de la recta.'}`}else $('pointInfo').textContent='Seleccione un punto para conocer el residuo.';
+}
+function coord(ev){let svg=$('plot'),rect=svg.getBoundingClientRect(),x=(ev.clientX-rect.left)*700/rect.width,y=(ev.clientY-rect.top)*460/rect.height;return [clamp(Math.round(ux(x)*100)/100,0,10),clamp(Math.round(uy(y)*100)/100,0,10)]}
+$('plot').addEventListener('pointerdown',ev=>{const c=ev.target.closest('circle[data-index]');if(!c)return;drag=Number(c.getAttribute('data-index'));selected=drag;$('plot').setPointerCapture(ev.pointerId);draw()});
+$('plot').addEventListener('pointermove',ev=>{if(drag<0)return;points[drag]=coord(ev);draw()});
+function stop(){drag=-1}$('plot').addEventListener('pointerup',stop);$('plot').addEventListener('pointercancel',stop);
+for(const id of ['residuals','means','fit'])$(id).addEventListener('change',draw);
+function set(arr){points=arr.map(p=>p.slice());selected=Math.min(3,points.length-1);draw()}
+$('reset').onclick=()=>set(original);$('positive').onclick=()=>set([[1,1.3],[2,2.6],[3,2.9],[4,4.5],[5,5.1],[6,6.4],[7,6.8],[8,8.5]]);$('negative').onclick=()=>set([[1,8.6],[2,7.9],[3,7.2],[4,6.1],[5,4.7],[6,4.2],[7,2.7],[8,1.3]]);$('nonlinear').onclick=()=>set([[1,8],[2,5],[3,3],[4,2],[5,2],[6,3],[7,5],[8,8]]);
+$('add').onclick=()=>{points.push([5,5]);selected=points.length-1;draw()};$('remove').onclick=()=>{if(points.length<=3){$('status').textContent='Mantenga al menos tres observaciones.';return}points.pop();selected=Math.min(selected,points.length-1);$('status').textContent='';draw()};
+$('csv').onclick=()=>{const s=stats();let rows=['Punto,X,Y,Y_estimada,Residuo',...points.map(([x,y],i)=>[i+1,x,y,s.a+s.b*x,y-s.a-s.b*x].join(','))];const blob=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='correlacion_regresion_cch.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('status').textContent='Tabla exportada como CSV.'};draw();
+})();
+</script></body></html>
